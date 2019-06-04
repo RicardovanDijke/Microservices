@@ -13,7 +13,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User implements Serializable {
+public class Account implements Serializable {
     
     @Id
     private Long id;
