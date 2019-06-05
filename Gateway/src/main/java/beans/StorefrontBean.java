@@ -11,8 +11,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
@@ -25,13 +27,11 @@ import util.CartRow;
 public final class StorefrontBean implements Serializable {
 
     private static final String STOCK_SERVICE_API = "http://localhost:8080/StockService";
+    private static final String ORDER_SERVICE_API = "http://localhost:8080/OrderService";
 
-    //private Map<String, Integer> cart = new HashMap<>();
     private List<CartRow> cart = new ArrayList<>();
-
+    private double totalCartPrice = 0;
     private List<Product> allProducts = new ArrayList<>();
-
-    private Product selectedProduct;
 
     @PostConstruct
     public void getProductsInStock() {
@@ -88,6 +88,30 @@ public final class StorefrontBean implements Serializable {
                 }
                 break;
             }
+        }
+    }
+    
+    private void updateCartPrice(){
+        totalCartPrice = 0;
+        
+        for(CartRow cr : cart){
+          //  totalCartPrice += (cr.)
+        }
+    }
+
+    public void order() {
+        System.out.println("Sending Order");
+
+        Client client = ClientBuilder.newClient();
+
+        Response response = client.target(ORDER_SERVICE_API)
+                .path("/api/newOrder")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(cart));
+
+        if (response.getStatus() == 200) {
+            System.out.println("order sent!");
+            //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "storefront.xhtml?faces-redirect=true\"");
         }
     }
 }

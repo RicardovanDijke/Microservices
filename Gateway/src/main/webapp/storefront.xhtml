@@ -20,7 +20,6 @@
                          var="product" 
                          value="#{storefrontBean.allProducts}" 
                          selectionMode="single" 
-                         selection="#{storefrontBean.selectedProduct}" 
                          rowKey="#{product.id}"
                          style="width:500px;">
                 <f:facet name="header">
@@ -64,6 +63,13 @@
                 </p:column>
             </p:dataTable>
 
+            <h:outputText value="#{storefrontBean.totalCartPrice}"/>
+        </h:form>
+
+        <br/>
+        <br/>
+        <h:form>
+            <h:commandButton value= "Order" action="#{storefrontBean.order()}"  />
         </h:form>
     </h:body>
 </html>
