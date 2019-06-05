@@ -62,25 +62,25 @@ public final class StorefrontBean implements Serializable {
 
         boolean contains = false;
         for (CartRow cartRow : cart) {
-            if (cartRow.name.equals(product.getName())) {
+            if (cartRow.product.getName().equals(product.getName())) {
                 cartRow.amount += 1;
                 contains = true;
                 break;
             }
         }
         if (!contains) {
-            cart.add(new CartRow(product.getName(), 1));
+            cart.add(new CartRow(product, 1));
         }
     }
 
     public void onCartRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Game removed from Cart", ((CartRow) event.getObject()).getName());
+        FacesMessage msg = new FacesMessage("Game removed from Cart", ((CartRow) event.getObject()).getProduct().getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         CartRow cartRowSelected = (CartRow) event.getObject();
 
         for (CartRow cartRow : cart) {
-            if (cartRow.name.equals(cartRowSelected.getName())) {
+            if (cartRow.getProduct().getName().equals(cartRowSelected.getProduct().getName())) {
                 cartRow.amount -= 1;
 
                 if (cartRow.amount == 0) {

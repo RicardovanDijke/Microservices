@@ -56,7 +56,7 @@
                 </f:facet>
                 <p:ajax event="rowSelect" listener="#{storefrontBean.onCartRowSelect}" update=":formCart" />
                 <p:column headerText="Name">
-                    <h:outputText value="#{cartItem.name}" />
+                    <h:outputText value="#{cartItem.product.name}" />
                 </p:column>
                 <p:column headerText="Price">
                     <h:outputText value="#{cartItem.amount}" />

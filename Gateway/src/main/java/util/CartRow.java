@@ -1,5 +1,6 @@
 package util;
 
+import domain.Product;
 import lombok.*;
 
 /**
@@ -11,11 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 public class CartRow {
 
-    public String name;
+    public Product product;
     public Integer amount;
 
-    public CartRow(String name, Integer amount) {
-        this.name = name;
+    public CartRow(Product product, Integer amount) {
+        this.product = product;
         this.amount = amount;
     }
 }
