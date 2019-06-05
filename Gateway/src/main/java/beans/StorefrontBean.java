@@ -3,9 +3,7 @@ package beans;
 import domain.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
+import util.CartRow;
 
 @ManagedBean
 @SessionScoped
@@ -27,16 +26,12 @@ public final class StorefrontBean implements Serializable {
 
     private static final String STOCK_SERVICE_API = "http://localhost:8080/StockService";
 
-    private Map<String, Integer> cart = new HashMap<>();
-    //private List<Tuple<String,Integer>> cart = new ArrayList<>();
-    
+    //private Map<String, Integer> cart = new HashMap<>();
+    private List<CartRow> cart = new ArrayList<>();
+
     private List<Product> allProducts = new ArrayList<>();
 
     private Product selectedProduct;
-
-    public StorefrontBean() {
-        cart = new HashMap<>();
-    }
 
     @PostConstruct
     public void getProductsInStock() {
@@ -65,28 +60,34 @@ public final class StorefrontBean implements Serializable {
 
         Product product = (Product) event.getObject();
 
-        int count = cart.containsKey(product.getName()) ? cart.get(product.getName()) : 0;
-        cart.put(product.getName(), count + 1);
-
-        System.out.println(cart.toString());
+        boolean contains = false;
+        for (CartRow cartRow : cart) {
+            if (cartRow.name.equals(product.getName())) {
+                cartRow.amount += 1;
+                contains = true;
+                break;
+            }
+        }
+        if (!contains) {
+            cart.add(new CartRow(product.getName(), 1));
+        }
     }
 
     public void onCartRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Game removed from Cart", ((Map.Entry<String, Integer>) event.getObject()).getKey());
+        FacesMessage msg = new FacesMessage("Game removed from Cart", ((CartRow) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        Map.Entry<String, Integer> cartRow = (Map.Entry<String, Integer>) event.getObject();
+        CartRow cartRowSelected = (CartRow) event.getObject();
 
-        int count = cart.containsKey(cartRow.getKey()) ? cart.get(cartRow.getKey()) : 0;
-        cart.put(cartRow.getKey(), count - 1);
+        for (CartRow cartRow : cart) {
+            if (cartRow.name.equals(cartRowSelected.getName())) {
+                cartRow.amount -= 1;
 
-        if (cartRow.getValue() == 0) {
-            cart.remove(cartRow.getKey());
+                if (cartRow.amount == 0) {
+                    cart.remove(cartRow);
+                }
+                break;
+            }
         }
-        
-        if(cart.entrySet().isEmpty()){
-            cart = new HashMap<>();
-        }
-        System.out.println(cart.toString());
     }
 }
