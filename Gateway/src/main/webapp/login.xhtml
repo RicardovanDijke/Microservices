@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,8 +10,17 @@
     <h:body>
         <h:form>
             <div>TODO write content</div>
+            <span class="ui-float-label">
+                <p:inputText id="float-input-username" value="#{loginBean.username}" />
+                <p:outputLabel for="@previous" value="Username" />
+            </span>
+            
+               <span class="ui-float-label">
+                <p:inputText id="float-input-password" value="#{loginBean.password}" />
+                <p:outputLabel for="@previous" value="Password" />
+            </span>
 
-            <h:commandButton action="#{loginBean.Login()}" />
+            <h:commandButton value= "login" action="#{loginBean.Login()}"  />
         </h:form>
     </h:body>
 </html>
