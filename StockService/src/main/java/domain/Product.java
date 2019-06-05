@@ -11,19 +11,17 @@ import lombok.*;
 @NoArgsConstructor
 public class Product {
 
-    int id;
-    private String name;
+    private int id;
     private Double price;
-    private int amountPicked;
+    private String name;
     private int amountLeft;
     private String imageUrl;
 
     public Product(int id, String name, Double price, int amountLeft, String imageUrl) {
         this.id = id;
-        this.price = price;
         this.name = name;
+        this.price = price;
         this.amountLeft = amountLeft;
         this.imageUrl = imageUrl;
-        amountPicked = 0;
     }
 }

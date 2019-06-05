@@ -18,7 +18,7 @@ import lombok.*;
 @Setter
 public class LoginBean implements Serializable {
 
-    private static final String LOGIN_SERVICE_API = "http://localhost:8080/LoginService/api";
+    private static final String LOGIN_SERVICE_API = "http://localhost:8080/LoginService";
     
     private String username = "user1";
     private String password = "admin";
@@ -33,7 +33,7 @@ public class LoginBean implements Serializable {
         Client client = ClientBuilder.newClient();
 
         Response response = client.target(LOGIN_SERVICE_API)
-                .path("/login")
+                .path("/api/login")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.form(form));
 

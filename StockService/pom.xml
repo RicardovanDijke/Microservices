@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>1</groupId>
-    <artifactId>Gateway</artifactId>
+    <artifactId>StockService</artifactId>
     <version>0</version>
     <packaging>war</packaging>
 
-    <name>MGateway</name>
+    <name>MStockService</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -20,12 +20,6 @@
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
             <scope>provided</scope>
-        </dependency>        
-        
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>7.0</version>
         </dependency>
         
         <dependency>

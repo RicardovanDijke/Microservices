@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{storefrontBean.getProductsInStock()}"/>
+    </f:metadata>
+    <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content aaaa</div>
-    </body>
+    </h:head>
+
+    <h:body>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+            <p:dataTable id="eventsDT" 
+                         var="product" 
+                         value="#{storefrontBean.allProducts}" 
+                         selectionMode="single" 
+                         selection="#{dtSelectionView.selectedProduct}" 
+                         rowKey="#{product.id}"
+                         style="width:600px;">
+                <f:facet name="header">
+                    Available Games
+                </f:facet>
+                <p:ajax event="rowSelect" listener="#{dtSelectionView.onRowSelect}" update=":form:msgs" />
+                <p:ajax event="rowUnselect" listener="#{dtSelectionView.onRowUnselect}" update=":form:msgs" />
+                <p:column headerText="Id">
+                    <h:outputText value="#{product.id}" />
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{product.name}" />
+                </p:column>
+                <p:column headerText="Price">
+                    <h:outputText value="#{product.price}" />
+                </p:column>
+                <p:column headerText="" style="width:150px;">
+                    <h:graphicImage value="#{product.imageUrl}" width ="150px" height="150px"  />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
 </html>
