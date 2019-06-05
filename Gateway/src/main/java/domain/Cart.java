@@ -1,7 +1,7 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.*;
 
 /**
@@ -13,5 +13,13 @@ import lombok.*;
 @NoArgsConstructor
 public class Cart {
 
-    private List<Product> products = new ArrayList<>();
+    private Map<Product, Integer> products = new HashMap<>();
+//
+//    public boolean addProduct(Product product) {
+//      //  if(product.)
+//    }
+//
+//    public boolean removeProduct() {
+//
+//    }
 }

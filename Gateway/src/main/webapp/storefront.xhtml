@@ -9,36 +9,58 @@
         <f:event type="preRenderView" listener="#{storefrontBean.getProductsInStock()}"/>
     </f:metadata>
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Welkom bij Stoom!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-
+    <h1>Welkom bij Stoom! </h1>
     <h:body>
-        <h:form id="form">
+        <h:form id="formStock">
             <p:growl id="msgs" showDetail="true" />
             <p:dataTable id="eventsDT" 
                          var="product" 
                          value="#{storefrontBean.allProducts}" 
                          selectionMode="single" 
-                         selection="#{dtSelectionView.selectedProduct}" 
+                         selection="#{storefrontBean.selectedProduct}" 
                          rowKey="#{product.id}"
-                         style="width:600px;">
+                         style="width:500px;">
                 <f:facet name="header">
                     Available Games
                 </f:facet>
-                <p:ajax event="rowSelect" listener="#{dtSelectionView.onRowSelect}" update=":form:msgs" />
-                <p:ajax event="rowUnselect" listener="#{dtSelectionView.onRowUnselect}" update=":form:msgs" />
-                <p:column headerText="Id">
-                    <h:outputText value="#{product.id}" />
-                </p:column>
+                <p:ajax event="rowSelect" listener="#{storefrontBean.onProductRowSelect}" update=":formStock:msgs :formCart" />
                 <p:column headerText="Name">
                     <h:outputText value="#{product.name}" />
                 </p:column>
                 <p:column headerText="Price">
                     <h:outputText value="#{product.price}" />
                 </p:column>
-                <p:column headerText="" style="width:150px;">
-                    <h:graphicImage value="#{product.imageUrl}" width ="150px" height="150px"  />
+                <p:column headerText="" style="width:100px;">
+                    <h:graphicImage value="#{product.imageUrl}" width ="100px" height="100px"  />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+
+        <br/>
+        <br/>
+        <h:form id="formCart">
+            <p:growl id="msgs" showDetail="true" />
+            <p:dataTable id="eventsDT" 
+                         var="cartItem" 
+                         value="#{storefrontBean.cart}" 
+                         selectionMode="single" 
+                         rowKey="#{cartItem}"
+                         emptyMessage="Your cart is empty!" 
+                         style="width:500px;">
+                <f:facet name="header">
+                    Available Games
+                </f:facet>
+                <p:ajax event="rowSelect" listener="#{storefrontBean.onCartRowSelect}" update=":formCart" />
+                <p:column headerText="Name">
+                    <h:outputText value="#{cartItem.key}" />
+                </p:column>
+                <p:column headerText="Price">
+                    <h:outputText value="#{cartItem.value}" />
                 </p:column>
             </p:dataTable>
 
