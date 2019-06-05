@@ -1,4 +1,4 @@
-package util;
+package domain;
 
 import domain.Product;
 import lombok.*;

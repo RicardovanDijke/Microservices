@@ -52,7 +52,7 @@
                          emptyMessage="Your cart is empty!" 
                          style="width:500px;">
                 <f:facet name="header">
-                    Available Games
+                    Your cart
                 </f:facet>
                 <p:ajax event="rowSelect" listener="#{storefrontBean.onCartRowSelect}" update=":formCart" />
                 <p:column headerText="Name">
@@ -62,8 +62,9 @@
                     <h:outputText value="#{cartItem.amount}" />
                 </p:column>
             </p:dataTable>
+            <br/>
 
-            <h:outputText value="#{storefrontBean.totalCartPrice}"/>
+            <h:outputText value="Total: #{storefrontBean.totalCartPriceString}"/>
         </h:form>
 
         <br/>

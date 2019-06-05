@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
-import util.CartRow;
+import domain.CartRow;
 
 @ManagedBean
 @SessionScoped
@@ -31,6 +31,8 @@ public final class StorefrontBean implements Serializable {
 
     private List<CartRow> cart = new ArrayList<>();
     private double totalCartPrice = 0;
+    private String totalCartPriceString = "";
+
     private List<Product> allProducts = new ArrayList<>();
 
     @PostConstruct
@@ -71,6 +73,8 @@ public final class StorefrontBean implements Serializable {
         if (!contains) {
             cart.add(new CartRow(product, 1));
         }
+
+        updateCartPrice();
     }
 
     public void onCartRowSelect(SelectEvent event) {
@@ -89,17 +93,24 @@ public final class StorefrontBean implements Serializable {
                 break;
             }
         }
+
+        updateCartPrice();
     }
-    
-    private void updateCartPrice(){
+
+    private void updateCartPrice() {
         totalCartPrice = 0;
-        
-        for(CartRow cr : cart){
-          //  totalCartPrice += (cr.)
+
+        for (CartRow cr : cart) {
+            totalCartPrice += (cr.product.getPrice() * cr.getAmount());
         }
+
+        totalCartPriceString = String.format("%.2f", totalCartPrice) + "€";
     }
 
     public void order() {
+        if (cart.isEmpty()) {
+            return;
+        }
         System.out.println("Sending Order");
 
         Client client = ClientBuilder.newClient();
