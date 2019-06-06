@@ -19,9 +19,11 @@ import lombok.*;
 public class LoginBean implements Serializable {
 
     private static final String LOGIN_SERVICE_API = "http://localhost:8080/LoginService";
-    
+
     private String username = "user1";
     private String password = "admin";
+
+    private String message;
 
     //validate login
     public void Login() {
@@ -37,9 +39,21 @@ public class LoginBean implements Serializable {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.form(form));
 
-        if (response.getStatus() == 200) {
-            System.out.println("logged in");
-            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "storefront.xhtml?faces-redirect=true\"");
+        switch (response.getStatus()) {
+            case 200:
+                System.out.println("logged in");
+                FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "storefront.xhtml?faces-redirect=true\"");
+                break;
+            case 204:
+                System.out.println("Wrong credentials");
+                message = "Invalid user and or password combination.";
+                break;
+            default:
+                message = "Could not connect to loginService.";
+                break;
         }
+    }
+    public void refreshMsg(){
+        message = "";
     }
 }

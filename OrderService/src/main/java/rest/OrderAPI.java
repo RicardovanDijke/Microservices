@@ -15,14 +15,12 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class OrderAPI {
 
-    // @Inject
-    // private StockService stockService;
     @POST
     @Produces(APPLICATION_JSON)
     @Path("newOrder")
     public Response newOrder(List<CartRow> cart) {
 
-        System.out.println("Got order");
+        System.out.println("ORDERSERVICE: Got order!");
         return Response.ok().build();
     }
 

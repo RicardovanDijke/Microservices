@@ -1,5 +1,6 @@
 package beans;
 
+import domain.CartRow;
 import domain.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import javax.ws.rs.core.Response;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.event.SelectEvent;
-import domain.CartRow;
 
 @ManagedBean
 @SessionScoped
@@ -34,6 +34,8 @@ public final class StorefrontBean implements Serializable {
     private String totalCartPriceString = "";
 
     private List<Product> allProducts = new ArrayList<>();
+
+    private String orderMessage;
 
     @PostConstruct
     public void getProductsInStock() {
@@ -122,7 +124,7 @@ public final class StorefrontBean implements Serializable {
 
         if (response.getStatus() == 200) {
             System.out.println("order sent!");
-            //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "storefront.xhtml?faces-redirect=true\"");
+            orderMessage = "order processed!";
         }
     }
 }

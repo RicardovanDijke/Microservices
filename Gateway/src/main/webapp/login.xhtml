@@ -11,16 +11,21 @@
         <h:form>
             <div>TODO write content</div>
             <span class="ui-float-label">
-                <p:inputText id="float-input-username" value="#{loginBean.username}" />
+                <p:inputText id="float-input-username" value="#{loginBean.username}"  />
                 <p:outputLabel for="@previous" value="Username" />
             </span>
-            
-               <span class="ui-float-label">
-                <p:inputText id="float-input-password" value="#{loginBean.password}" />
+            <br/>
+            <span class="ui-float-label">
+                <p:inputText id="float-input-password" value="#{loginBean.password}"  type="password"  />
                 <p:outputLabel for="@previous" value="Password" />
             </span>
+            <br/>
 
             <h:commandButton value= "Login" action="#{loginBean.Login()}"  />
+
+            <br/>
+            <p:outputLabel value="#{loginBean.message}" />
+
         </h:form>
     </h:body>
 </html>
