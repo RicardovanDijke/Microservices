@@ -80,6 +80,8 @@ public final class StorefrontBean implements Serializable {
     }
 
     public void onCartRowSelect(SelectEvent event) {
+        orderMessage = "";
+        
         FacesMessage msg = new FacesMessage("Game removed from Cart", ((CartRow) event.getObject()).getProduct().getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 

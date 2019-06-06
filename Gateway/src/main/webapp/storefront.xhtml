@@ -39,7 +39,6 @@
 
         </h:form>
 
-
         <br/>
         <br/>
         <h:form id="formCart">
@@ -72,5 +71,9 @@
         <h:form>
             <h:commandButton value= "Order" action="#{storefrontBean.order()}"  />
         </h:form>
+
+        <br/>
+        <p:outputLabel value="#{storefrontBean.orderMessage}" />
+
     </h:body>
 </html>
